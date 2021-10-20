@@ -42,7 +42,7 @@ html, body {
     for (let i=0; i< columnsCount; i++){
       for (let y=0; y<columnsCount; y++){
          const newDiv = document.createElement("div");
-         newDiv.innerText = `[${i+1},${y+1}]`;
+         newDiv.innerText = `[${i+1},${y+1}], [${squareWidth*y},${squareHeight*i}]`;
          newDiv.classList.add("square");
          newDiv.style.width = (squareWidth - 2)+ "px";
          newDiv.style.height = (squareHeight - 2) + "px";
@@ -57,3 +57,4 @@ html, body {
 </script>
 </body>
 </html> 
+
