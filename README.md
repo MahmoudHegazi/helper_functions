@@ -9,4 +9,4 @@ How to determine equality for two JavaScript objects
 https://www.w3schools.com/code/tryit.asp?filename=GSX6OC1W5Z22
 
 
-[!screenshot](square.JPG)
+![screenshot](square.JPG)
