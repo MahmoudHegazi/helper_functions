@@ -20,6 +20,10 @@ html, body {
   align-items: center;
 
 }
+
+.square_random {
+  background: lightblue;
+}
 </style>
 </head>
 <body>
@@ -30,28 +34,51 @@ html, body {
   const demo = document.querySelector("#demo");
   function createAndGetTableSquare(parentWidth, parentHeight, borderHeight,squareWidth, squareHeight){
     const borderWidth = borderHeight = Math.round(borderHeight * 2);
-    const netWidth = parentWidth - borderWidth;
-    const netHeight = parentHeight - borderWidth;
+    const netWidth = parentWidth - borderHeight;
+    const netHeight = parentHeight - borderHeight;
     const fullWidth = netWidth * 2;
     const fullHeight = parentHeight * 2;
     const rowsCount = netWidth / squareWidth;
     const columnsCount = netHeight / squareHeight;
-    alert("Rows:" +rowsCount + " Columns: " + columnsCount);
+    //alert("Rows:" +rowsCount + " Columns: " + columnsCount);
+    
+    let randomLimit = Math.floor(Math.random() * Math.round((columnsCount + rowsCount)/4));
+    
 
+    const squares = [];
     const fragment = document.createDocumentFragment();
     for (let i=0; i< columnsCount; i++){
-      for (let y=0; y<columnsCount; y++){
+    
+         let dnuym = i == 0 ? rowsCount : rowsCount * i
+         let randRowSquare = Math.floor(Math.random() * rowsCount);
+      for (let y=0; y<rowsCount; y++){
+         
          const newDiv = document.createElement("div");
          newDiv.innerText = `[${i+1},${y+1}], [${squareWidth*y},${squareHeight*i}]`;
          newDiv.classList.add("square");
          newDiv.style.width = (squareWidth - 2)+ "px";
          newDiv.style.height = (squareHeight - 2) + "px";
          newDiv.style.border = "1px solid lightblue";
+         if (y == randRowSquare){ newDiv.classList.add("square_random");};
+         squares.push({index: y, x: squareWidth*y, y: squareHeight*i});
+         let randSquare = Math.floor(Math.random() * squares.length);
+         
          fragment.appendChild(newDiv);
       }
     }
     demo.appendChild(fragment);
-        return {rows: rowsCount, columns: columnsCount, total: columnsCount + rowsCount};
+    
+    const randomSquares = [];
+    
+    const allsquares = document.querySelectorAll(".square");
+    for (var randIndex=0; randIndex<randomLimit; randIndex++){
+    
+       
+       allsquares[randSquare].style.background = "lightblue";
+    }
+    
+    
+        return {rows: rowsCount, columns: columnsCount, total: columnsCount + rowsCount, randomSquares:randomSquares, squares:squares};
  }
  createAndGetTableSquare(demo.offsetWidth, demo.offsetHeight, 1, 150, 150);
 </script>
