@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+  <p id="timer"></p>
+<button id="demo">Fly</button>
+<button id="demo1">Hide</button>
+<button id="demo2">Remove</button>
+
+  <script src="https://pixijs.download/release/pixi.js"></script>
+</head>
+  <body>
+  <script>
+
+    let index = 0;
+    const levelLimit = 120;
+
+
+
+    function createAndGetTableSquare(parentWidth, parentHeight, borderHeight,squareWidth, squareHeight){
+    const borderWidth = borderHeight = Math.round(borderHeight * 2);
+    const netWidth = parentWidth - borderHeight;
+    const netHeight = parentHeight - borderHeight;
+    const fullWidth = netWidth * 2;
+    const fullHeight = parentHeight * 2;
+    const rowsCount = netWidth / squareWidth;
+    const columnsCount = netHeight / squareHeight;
+    //alert("Rows:" +rowsCount + " Columns: " + columnsCount);
+
+    let randomLimit = Math.floor(Math.random() * Math.round((columnsCount + rowsCount)/4));
+
+
+    const squares = [];
+    const randomPositions = [];
+    for (let i=0; i< columnsCount; i++){
+
+         let dnuym = i == 0 ? rowsCount : rowsCount * i
+         let randRowSquare = Math.floor(Math.random() * rowsCount);
+      for (let y=0; y<rowsCount; y++){
+
+
+         if (y == randRowSquare){
+         randomPositions.push({x: squareWidth*y, y: squareHeight*i})
+         };
+
+         squares.push({index: y, x: squareWidth*y, y: squareHeight*i});
+
+      }
+    }
+
+     return {rows: rowsCount, columns: columnsCount, total: columnsCount + rowsCount, randomPositions:randomPositions, squares:squares};
+ }
+ let callFun = createAndGetTableSquare(600, 600, 1, 150, 150);
+ console.log(callFun.randomPositions);
+
+
+    const flyAction = document.querySelector("#demo");
+    const hideSpirte = document.querySelector("#demo1");
+    flyAction.addEventListener("click", testAction);
+    hideSpirte.addEventListener("click", hide);
+
+    const randomFishish = callFun.randomPositions;
+
+
+    let app2 = new PIXI.Application({ width: 600, height: 600, backgroundColor: 'blue'});
+    let background1 = PIXI.Sprite.from('/images/sea.jpg');
+    let warm = PIXI.Sprite.from('/images/warm.png');
+    warm.zIndex = 1;
+    app2.stage.addChild(background1);
+
+     warm.width = 80;
+     warm.height = 100;
+
+
+     function addFishishes(randomFishish){
+      randomFishish.forEach( (fishElm)=> {
+      let fish = PIXI.Sprite.from('/images/fish.png');
+      fish.zIndex=2;
+      fish.width = 150;
+      fish.height = 150;
+      fish.x = fishElm.x;
+      fish.y = fishElm.y;
+      app2.stage.addChild(fish);
+      let elapsed01 = 0.0;
+      fishishes.push(fish);
+       });
+
+            app2.ticker.add((delta) => {
+         elapseds = [];
+         fishishes.forEach( (fish, index)=>{
+            elapseds.push(0);
+         });
+        fishishes.forEach( (fish, index)=>{
+
+            fish.x += 1;
+            fish.y += 1;
+
+        });
+     });
+
+
+     }
+     let fishishes = [];
+/*
+for (var i=0; i<100; i++){
+  if (index % 10 == 0) {
+    addFishishes();
+  } else if (index == levelLimit) {
+     endGame();
+     alert("you won");
+     break;
+  } else {
+     continue;
+  }
+}
+
+*/
+    function clock() {
+     setTimeout(()=>{
+     index += 1;
+     let word = "Seconds";
+        if (index == 1){
+          word = "second";
+        }
+     if (index % 10 == 0) {
+       addFishishes(createAndGetTableSquare(600, 600, 1, 150, 150).randomPositions);
+     }
+     document.querySelector("#timer").innerText = index + " " + word + ".";
+     console.log("Seconds: " + index);
+     clock();}, 996)
+     }
+
+     window.addEventListener("load", clock);
+
+
+     function endGame(){
+     window.removeEventListener("load", clock);
+     }
+
+
+
+
+
+
+warm.on('click', onDragStart);
+     function onDragStart(event) {
+        alert("hi");
+    }
+
+app2.stage.addChild(warm);
+
+     let elapsed1 = 0.0;
+     app2.ticker.add((delta) => {
+        elapsed1 += delta;
+        warm.x = 100.0 + Math.cos(elapsed1/50.0) * 100.0;
+        if (Math.round(elapsed1) % 2 == 0){ warm.y += 1.1;} else {
+          warm.y -= 1;
+        }
+     });
+
+    let app = new PIXI.Application({ width: 640, height: 360 , backgroundColor: 'blue'});
+
+     let background = PIXI.Sprite.from('/images/bg2.jpg');
+     app.stage.addChild(background);
+
+    let sprite = PIXI.Sprite.from('/images/sample.png');
+    sprite.zIndex=1;
+    app.stage.addChild(sprite);
+    let elapsed = 0.0;
+
+    function testAction(){
+
+      app.stage.addChild(sprite);
+
+      // Add a variable to count up the seconds our demo has been running
+
+
+
+      // Add a ticker callback to move the sprite back and forth
+      // Tell our application's ticker to run a new callback every frame, passing
+      // in the amount of time that has passed since the last tick
+      let direction = 'down';
+      let backgroundupIndex = 1;
+      app.ticker.add((delta) => {
+
+      // Add the time to our total elapsed time
+
+      elapsed += delta;
+
+      // Update the sprite's X position based on the cosine of our elapsed time.  We divide
+      // by 50 to slow the animation down a bit...
+
+
+
+      if (backgroundupIndex <= 400) {
+          backgroundupIndex += 1;
+          background.y -= 1;
+          if ( backgroundupIndex == 400) {
+            backgroundupIndex = 0;
+            background.y = 0;
+          }
+      } else {
+          if ( backgroundupIndex == 1000) {
+            backgroundupIndex = 0;
+            background.y -= 1;
+          } else {
+            background.y += 1;
+          }
+
+      }
+
+  });
+
+
+      app.ticker.add((delta) => {
+
+      // Add the time to our total elapsed time
+
+      elapsed += delta;
+
+      // Update the sprite's X position based on the cosine of our elapsed time.  We divide
+      // by 50 to slow the animation down a bit...
+
+      sprite.x = 100.0 + Math.cos(elapsed/10.0) * 100.0;
+      sprite.y = 100.0 + Math.cos(elapsed/50.0) * 100.0;
+
+  });
+
+  }
+
+
+
+
+
+  function hide(){
+     app.stage.removeChild(sprite);
+  }
+
+
+    /*  document.body.appendChild(app.view); */
+
+
+        document.body.appendChild(app2.view);
+    console.log(app);
+  </script>
+
+  </body>
+</html>
