@@ -9,6 +9,9 @@ How to determine equality for two JavaScript objects
 https://www.w3schools.com/code/tryit.asp?filename=GSX6OC1W5Z22
 
 
-# getAndCreateSquares
+# get Dynamic Random Squares postions 
 ```function createAndGetTableSquare(parentWidth, parentHeight, borderHeight,squareWidth, squareHeight){}```
 ![screenshot](random.JPG)
+
+![screenshot](mygame.JPG)
+
