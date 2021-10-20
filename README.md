@@ -7,3 +7,6 @@ My New Method made , it search if the object contain the property we want add to
 # equalObjects
 How to determine equality for two JavaScript objects
 https://www.w3schools.com/code/tryit.asp?filename=GSX6OC1W5Z22
+
+
+[!screenshot](square.JPG)
