@@ -10,4 +10,5 @@ https://www.w3schools.com/code/tryit.asp?filename=GSX6OC1W5Z22
 
 
 # getAndCreateSquares
+```function createAndGetTableSquare(parentWidth, parentHeight, borderHeight,squareWidth, squareHeight){}```
 ![screenshot](square.JPG)
